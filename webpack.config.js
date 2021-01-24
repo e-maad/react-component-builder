@@ -31,7 +31,8 @@ module.exports = {
   devServer: {
     historyApiFallback: {
       index: "/index.html"
-    }
+    },
+    port: 9000,
   },
   watchOptions: {
     poll: true

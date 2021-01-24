@@ -4,7 +4,8 @@ import { isJsonValid } from '../../services/validate';
 const availablePreDefinedTemplate = [
     { value: 1, text: 'Template 1' },
     { value: 2, text: 'Template 2' },
-    { value: 3, text: 'Multiple children hierarchy' }
+    { value: 3, text: 'Multiple children hierarchy' },
+    { value: 4, text: 'Multiple modals' }
 ]
 
 const Dashboard = () => {
@@ -34,7 +35,7 @@ const Dashboard = () => {
             <span>Display pre defined template &nbsp;
             <select onChange={(e) => setOption(e.target.value)}>
                     {availablePreDefinedTemplate.map(option =>
-                        <option selected={selectedOption == option.value} value={option.value}>{option.text}</option>)}
+                        <option key={option.value} selected={selectedOption == option.value} value={option.value}>{option.text}</option>)}
                 </select>
             </span> &nbsp;
             <button onClick={onPreDefinedSelect}>Show Selected Template</button>

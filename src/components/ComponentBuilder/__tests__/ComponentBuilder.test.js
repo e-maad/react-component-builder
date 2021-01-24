@@ -1,9 +1,14 @@
+import { shallow } from 'enzyme';
 import React from 'react';
+import { Provider } from 'react-redux';
 import ChildrenComponent from '../ChildrenComponent';
 import ComponentBuilder from '../ComponentBuilder';
+import configureStore from 'redux-mock-store';
 
 describe('Component Builder Component', () => {
 
+    const mockStore = configureStore([]);
+    
     it('match the snapshot', () => {
         const wrapper = renderer.create(<ChildrenComponent />).toJSON();
         expect(wrapper).toMatchSnapshot();
@@ -62,7 +67,8 @@ describe('Component Builder Component', () => {
     });
 
     it('must verify the button component', () => {
-        expect(shallow(<ComponentBuilder component={{
+        const store = mockStore({});
+        expect(shallow(<Provider store={store}><ComponentBuilder component={{
             Content: {
                 type: "ButtonComponent",
                 props: {
@@ -70,11 +76,12 @@ describe('Component Builder Component', () => {
                 }
             }
 
-        }} />).html().includes('button-component')).toBe(true);
+        }} /></Provider>).html().includes('button-component')).toBe(true);
     });
 
     it('must verify the link component', () => {
-        expect(shallow(<ComponentBuilder component={{
+        const store = mockStore({});
+        expect(shallow(<Provider store={store}><ComponentBuilder component={{
             Content: {
                 type: "LinkComponent",
                 props: {
@@ -82,7 +89,7 @@ describe('Component Builder Component', () => {
                 }
             }
 
-        }} />).html().includes('link-component')).toBe(true);
+        }} /></Provider>).html().includes('link-component')).toBe(true);
     });
 
     it('must verify the box component', () => {

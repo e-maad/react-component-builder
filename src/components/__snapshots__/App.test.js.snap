@@ -43,6 +43,12 @@ exports[`(Component) App match the snapshot 1`] = `
               >
                 Multiple children hierarchy
               </option>
+              <option
+                selected={false}
+                value={4}
+              >
+                Multiple modals
+              </option>
             </select>
           </span>
             

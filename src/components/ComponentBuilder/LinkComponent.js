@@ -1,7 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-const LinkComponent = ({ text, url, id }) => {
-    return <a id={id} href={url} target="_blank" className='link-component'>{text}</a>
+const LinkComponent = ({ text, url, id, connectedModal, dispatch }) => {
+    
+    const clickHandler = () => {
+        if (connectedModal) {
+            dispatch({
+                payload: {
+                    [connectedModal]: true,
+                    [`${connectedModal}Trigger`]: id
+                },
+                type: ''
+            })
+        }
+    }
+
+    return <a id={id} href={url} onClick={clickHandler} target="_blank" className='link-component'>{text}</a>
 }
 
-export default LinkComponent;
+export default connect()(LinkComponent);

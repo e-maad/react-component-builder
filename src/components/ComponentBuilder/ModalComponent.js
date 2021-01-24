@@ -1,15 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import ChildrenComponent from './ChildrenComponent';
 
-const ModalComponent = ({ isOpen, width, height, children, id }) => {
-    const [modalOpenState, setModalOpenState] = useState(isOpen);
+const ModalComponent = ({ isOpen, width, height, children, id, appState, dispatch }) => {
 
-    return <div style={{ display: modalOpenState ? 'block' : 'none' }} id={id} className='modal-component modal'>
-        <div style={{ width, height }} class="modal-content">
-            <span class="close" onClick={() => setModalOpenState(false)}>&times;</span>
+    useEffect(() => {
+        updateModalState(isOpen);
+    }, [])
+
+    const updateModalState = (state) => {
+        dispatch({
+            payload: {
+                [id]: state
+            },
+            type: ''
+        })
+    }
+
+    return <div style={{ display: appState[id] ? 'block' : 'none' }} id={id} className='modal-component modal'>
+        <div style={{ width, height }} className="modal-content">
+            <span>Trigger Id: {appState[`${id}Trigger`] || 'Self'}</span>
+            <span className="close" onClick={() => updateModalState(false)}>&times;</span>
             {children ? <ChildrenComponent children={children} /> : ''}
         </div>
     </div>
 }
 
-export default ModalComponent;
+const mapStateToProps = state => {
+    return {
+        appState: state
+    };
+};
+
+export default connect(mapStateToProps)(ModalComponent);

@@ -10,7 +10,7 @@ exports[`Modal Component match the snapshot 1`] = `
   }
 >
   <div
-    class="modal-content"
+    className="modal-content"
     style={
       Object {
         "height": undefined,
@@ -18,8 +18,12 @@ exports[`Modal Component match the snapshot 1`] = `
       }
     }
   >
+    <span>
+      Trigger Id: 
+      Self
+    </span>
     <span
-      class="close"
+      className="close"
       onClick={[Function]}
     >
       ×

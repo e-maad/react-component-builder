@@ -1,16 +1,30 @@
 import React from 'react';
 import ModalComponent from '../ModalComponent';
+import configureStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
 
+const mockStore = configureStore([]);
 
-const wrapper = shallow(<ModalComponent isOpen={true} />);
 describe('Modal Component', () => {
+  let store;
+  let wrapper;
+
+  beforeEach(() => {
+    store = mockStore({});
+    wrapper = shallow(
+      <Provider store={store}>
+        <ModalComponent isOpen={true} />
+      </Provider>
+    );
+  });
 
   it('match the snapshot', () => {
-    const wrapper = renderer.create(<ModalComponent />).toJSON();
-    expect(wrapper).toMatchSnapshot();
+    expect(renderer.create(<Provider store={store}>
+      <ModalComponent isOpen={true} />
+    </Provider>).toJSON()).toMatchSnapshot();
   });
 
   it('base element should be present', () => {
-    expect(wrapper.find('.modal-component').length).toBe(1);
+    expect(wrapper.html().includes("modal-component")).toBe(true);
   });
 });
